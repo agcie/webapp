@@ -13,9 +13,17 @@ namespace WebApplication1.Controllers
             var firstBook = new Book() { Name = "Dict"};
             return View(firstBook);
         }
-        public IActionResult Index(int bookId)
+        public IActionResult Index(int? pageIndex, string sortBy)
         {
-            return Content("id" + bookId);
+            if (!pageIndex.HasValue)
+            {
+                pageIndex = 1;
+            }
+            if (String.IsNullOrEmpty(sortBy))
+            {
+                sortBy = "Name";
+            }
+            return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
         }
     }
 }
